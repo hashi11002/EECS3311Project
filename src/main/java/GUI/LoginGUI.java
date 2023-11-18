@@ -2,7 +2,7 @@ package GUI;
 
 import javax.swing.*;
 
-import Login.LoginBackend;
+import Login.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -106,7 +106,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 				String pwdText;
 				userText = userTextField.getText();
 				pwdText = passwordField.getText();
-				LoginBackend login = new LoginBackend();
+				LoginProxy login = new LoginProxy();
 
 				if (login.doLogin(userText, pwdText)) {
 					JOptionPane.showMessageDialog(this, "Login Successful");
