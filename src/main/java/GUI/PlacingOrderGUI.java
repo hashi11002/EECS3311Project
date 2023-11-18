@@ -2,19 +2,20 @@ package GUI;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 
 import javax.swing.*;
 
-public class PlacingOrder extends JFrame {
+public class PlacingOrderGUI extends JFrame {
 	private JComboBox<String> productComboBox;
-	private JTextField quantitydropdown;
+	private JComboBox<Integer> quantitydropdown;
 	private JComboBox<String> productdropdown;
 	
 	public static void main(String[] args) {
 		
-		PlacingOrder placingOrder = new PlacingOrder();
+		PlacingOrderGUI placingOrder = new PlacingOrderGUI();
 		}
-	  public PlacingOrder() {
+	  public PlacingOrderGUI() {
 	   
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setSize(300, 200);
@@ -35,31 +36,39 @@ public class PlacingOrder extends JFrame {
 
 	        // Quantity input
 	        JLabel choosequantity = new JLabel("Quantity Selected:");
+	        Integer[] quantities = {1, 2, 3, 4, 5,6,7,8,9,10};
 	        panel.add(choosequantity);
 
-	        quantitydropdown = new JTextField();
+	        quantitydropdown = new JComboBox<>(quantities);
 	        panel.add(quantitydropdown);
 
 	        // Order button
 	        JButton orderButton = new JButton("Place Order");
 	        panel.add(orderButton);
-
 	        orderButton.addActionListener(new ActionListener() {
-	            @Override
+	           
+	        	@Override
 	            public void actionPerformed(ActionEvent e) {
 	                placeOrder();
 	            }
 
 				private void placeOrder() {
-					// TODO Auto-generated method stub
+					String selectedProduct = (String) productdropdown.getSelectedItem();
+	                int selectedQuantity = (int) quantitydropdown.getSelectedItem();
+
+	           
+	                java.util.Date date = new java.util.Date();
+	                Timestamp timestamp = new Timestamp(date.getTime());
+
+	              
+	                String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + timestamp;
+	                JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
+	            }
 					
-				}
+
 	        });
 
-	        // Add panel to the frame
 	        add(panel);
-
-	        // Center the frame on the screen
 	        setLocationRelativeTo(null);
 	    }
 
