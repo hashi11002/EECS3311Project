@@ -1,5 +1,6 @@
 package GUI;
 import java.awt.Component;
+import Orders.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -19,14 +20,14 @@ public class PlacingOrderGUI extends JFrame {
 		PlacingOrderGUI placingOrder = new PlacingOrderGUI();
 		}
 	  public PlacingOrderGUI() {
+		  
+		  OrderSelection selection = new OrderSelection();
 	   
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setSize(300, 200);
 	       
-	        ArrayList<String> products = new ArrayList<>();
-	        products.add("Product A");
-	        products.add("Product B");
-	        products.add("Product C");
+	        ArrayList<String> products = new ArrayList<>(selection.getProductNames());
+
 	        createWindow(products);
 	        setVisible(true);
 	    }

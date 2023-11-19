@@ -21,15 +21,41 @@ public class OrderSelection {
 		Product product = new Product();
 		try {
 			Connection con = DriverManager.getConnection(url, user, password);
+			
 			String query = "select * from product";
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(query);
-			if(rs.next()) {
+			
+			while(rs.next()) {
 				product.setId(rs.getInt("ID"));
 				product.setitemNname(rs.getString("itemName"));
-				product.setMaxCapacity(rs.getInt("maxCapacity"));
+				product.setMaxCapacity(rs.getInt("maxQuantity"));
 				product.setRemainingStock(rs.getInt("remainingStock"));
 				products.add(product);
+			}
+		}
+
+		catch(Exception e){
+			System.out.println("ERROR IN ORDERING");
+		}
+		return products;
+	}
+	
+	public List<String> getProductNames(){
+		List<String> products = new ArrayList<>();
+		Product product = new Product();
+		try {
+			Connection con = DriverManager.getConnection(url, user, password);
+			
+			String query = "select * from product";
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			
+			while(rs.next()) {
+
+				product.setitemNname(rs.getString("itemName"));
+
+				products.add(product.getitemName());
 			}
 		}
 

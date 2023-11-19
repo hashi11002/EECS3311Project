@@ -1,5 +1,7 @@
 package Orders;
 
+import java.util.List;
+
 public class Product {
 	
 	private int id;
@@ -35,3 +37,9 @@ public class Product {
 	}
 	
 }
+
+//List<Product> productList = selection.getProducts();
+//String[] products = new String[productList.size()];
+//for(int i = 0; i < productList.size(); i++) {
+//	products[i] = productList.get(i).getitemName();
+//}
