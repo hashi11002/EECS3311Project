@@ -3,8 +3,11 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.swing.*;
+
+import Orders.Product;
 
 public class PlacingOrderGUI extends JFrame {
 	private JComboBox<String> productComboBox;
@@ -19,19 +22,25 @@ public class PlacingOrderGUI extends JFrame {
 	   
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setSize(300, 200);
-	        String[] products = {"Product A", "Product B", "Product C"};
+	       
+	        ArrayList<String> products = new ArrayList<>();
+	        products.add("Product A");
+	        products.add("Product B");
+	        products.add("Product C");
 	        createWindow(products);
 	        setVisible(true);
 	    }
-	  private void createWindow(String[] products) {
+	  private void createWindow(ArrayList<String> products) {
 	        JPanel panel = new JPanel();
 	        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 	        // dropdown menue 
 	        JLabel chooseproduct = new JLabel("Select Product:");
-	        panel.add(chooseproduct);
+	        panel.add(chooseproduct); 
+	    
 
-	        productdropdown = new JComboBox<>(products);
+	        String[] productsArray = products.toArray(new String[0]);
+	        productdropdown = new JComboBox<>(productsArray);
 	        panel.add(productdropdown);
 
 	        // Quantity input
@@ -60,7 +69,7 @@ public class PlacingOrderGUI extends JFrame {
 	                java.util.Date date = new java.util.Date();
 	                Timestamp timestamp = new Timestamp(date.getTime());
 
-	              
+	               
 	                String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + timestamp;
 	                JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
 	            }
