@@ -46,7 +46,7 @@ public class PlacingOrderGUI extends JFrame {
 
 	        // Quantity input
 	        JLabel choosequantity = new JLabel("Quantity Selected:");
-	        Integer[] quantities = {1, 2, 3, 4, 5,6,7,8,9,10};
+	        Integer[] quantities = {1, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100};
 	        panel.add(choosequantity);
 
 	        quantitydropdown = new JComboBox<>(quantities);
@@ -63,8 +63,12 @@ public class PlacingOrderGUI extends JFrame {
 	            }
 
 				private void placeOrder() {
+					OrderSelection selection = new OrderSelection();
 					String selectedProduct = (String) productdropdown.getSelectedItem();
+					Product product =  selection.getProductByName(selectedProduct);
+					//Store this product into the context.
 	                int selectedQuantity = (int) quantitydropdown.getSelectedItem();
+	                //store this quantity into the context.
 
 	           
 	                java.util.Date date = new java.util.Date();

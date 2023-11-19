@@ -78,7 +78,7 @@ public class OrderSelection {
 			if(rs.next()) {
 				product.setId(rs.getInt("ID"));
 				product.setitemNname(rs.getString("itemName"));
-				product.setMaxCapacity(rs.getInt("maxCapacity"));
+				product.setMaxCapacity(rs.getInt("maxQuantity"));
 				product.setRemainingStock(rs.getInt("remainingStock"));
 			}
 			
