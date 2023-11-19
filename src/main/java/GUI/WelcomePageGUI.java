@@ -38,7 +38,7 @@ public class WelcomePageGUI extends JFrame implements ActionListener {
 	public void createWindow()
 	{
 		frame = new JFrame();
-		frame.setTitle("The Daily News Reporter Login Form");
+		frame.setTitle("The warehouse system ");
 
 		frame.setBounds(100,100,900,750);
 		//frame.getContentPane().setBackground(Color.pink);
