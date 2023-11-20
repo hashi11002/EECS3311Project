@@ -24,9 +24,9 @@ import Middleware.Order;
 // Note that the server can respond by sending back a Json or XML string
 // which is interpreted by the client appropriately as per the logic of the client
 
-public class httpServer {
+public class Server {
 	public void startServer() throws Exception {
-		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+		Server server = Server.create(new InetSocketAddress(8000), 0);
 		server.createContext("/test1", new MyHandler1());
 		server.createContext("/test2", new MyHandler2());
 		server.setExecutor(Executors.newCachedThreadPool());
