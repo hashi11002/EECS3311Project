@@ -1,6 +1,13 @@
 package Model;
 
+import java.time.LocalDateTime;
+
+import Viewer.BarViewer;
+import Viewer.TextViewer;
 import Viewer.Viewer;
+import warehouseServerVisualizer.gui.MainServerUI;
+import warehouseServerVisualizer.utils.AvailableProductList;
+import warehouseServerVisualizer.utils.LastOrder;
 
 public class OrderComponent implements Viewer {
 
