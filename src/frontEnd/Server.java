@@ -14,6 +14,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import Middleware.Order;
+
 // The client calls http://localhost:8000/test1?p1=10&p2=20 (e.g. from a Web browser or a Java Client program)
 // and gets back as a response "Hello World! P1 was: 10 and p2 was: 20"
 // If the client calls http://http://localhost:8000/test2/?p3=1000
@@ -24,7 +26,7 @@ import com.sun.net.httpserver.HttpServer;
 
 public class Server {
 	public void startServer() throws Exception {
-		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+		Server server = Server.create(new InetSocketAddress(8000), 0);
 		server.createContext("/test1", new MyHandler1());
 		server.createContext("/test2", new MyHandler2());
 		server.setExecutor(Executors.newCachedThreadPool());
@@ -78,5 +80,30 @@ public class Server {
 	        }
 	    }
 	    return result;
-	  }
+	}
+
+	public void displayRestockingInitiatedMessage(String product) {
+	        System.out.println("Restocking Operation for Product " + product + " initiated");
+	    }
+
+	    public void displayRestockingCompletedMessage(String product) {
+	        System.out.println("Restocking Operation for Product " + product + " completed");
+	    }
+
+	    public void displayOrderDetails(Order order) {
+	        System.out.println("Order Details:\nProduct: " + order.getProductName() +
+	                "\nQuantity: " + order.getQuantity() +
+	                "\nTimestamp: " + order.getDate());
+	    }
+
+	    public void displayOrderPendingMessage(Order order) {
+	        System.out.println("Order for Product " + order.getProductName() +
+	                " Quantity " + order.getQuantity() + " is pending – order exceeds available quantity");
+	    }
+
+	    public void displayOrderFinalizedMessage(Order order) {
+	        System.out.println("Order is finalized for Product " + order.getProductName() +
+	                " and Quantity " + order.getQuantity() +
+	                " with total price " + order.getTotalPrice());
+	    }
 }
