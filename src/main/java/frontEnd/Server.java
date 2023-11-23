@@ -82,9 +82,28 @@ public class Server {
 	    return result;
 	}
 
-	public void displayOrderFinalizedMessage(Order order, double price) {
+	public void displayRestockingInitiatedMessage(String product) {
+	        System.out.println("Restocking Operation for Product " + product + " initiated");
+	    }
+
+	    public void displayRestockingCompletedMessage(String product) {
+	        System.out.println("Restocking Operation for Product " + product + " completed");
+	    }
+
+	    public void displayOrderDetails(Order order) {
+	        System.out.println("Order Details:\nProduct: " + order.getProductName() +
+	                "\nQuantity: " + order.getQuantity() +
+	                "\nTimestamp: " + order.getDate());
+	    }
+
+	    public void displayOrderPendingMessage(Order order) {
+	        System.out.println("Order for Product " + order.getProductName() +
+	                " Quantity " + order.getQuantity() + " is pending – order exceeds available quantity");
+	    }
+
+	    public void displayOrderFinalizedMessage(Order order) {
 	        System.out.println("Order is finalized for Product " + order.getProductName() +
 	                " and Quantity " + order.getQuantity() +
-	                " with total price " + price);
-	}
+	                " with total price " + order.getTotalPrice());
+	    }
 }
