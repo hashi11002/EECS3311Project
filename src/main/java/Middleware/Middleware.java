@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+import Controller.ControllerFacade;
 import frontEnd.Server;
 
 public class Middleware {
@@ -52,7 +53,7 @@ public class Middleware {
         // Instantiate the necessary components
         Server Server = new Server();
         Middleware controller = new Middleware(Server);
-        processOrders();
 
     }
 }
+
