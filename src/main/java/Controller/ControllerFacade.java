@@ -11,7 +11,7 @@ public class ControllerFacade {
 	
 	private ControllerFacade() {}
 	
-	public ControllerFacade getInstance() {
+	public static ControllerFacade getInstance() {
 		if (instance == null) {
 			instance = new ControllerFacade();
 		}
