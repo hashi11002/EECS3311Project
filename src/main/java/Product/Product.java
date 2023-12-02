@@ -22,6 +22,14 @@ public class Product {
 		 this.priceStrategy = priceStrategy;
 		 this.restockStrategy = restockStrategy;
 	 }
+	 public Product(String name, int maxQuantity, int availableQuantity){
+		this.productName = name;
+		this.maxStockQuantity = maxQuantity;
+		this.minStockQuantity = 0;
+		this.availableQuantity = availableQuantity;
+		this.priceStrategy = null;
+		this.restockStrategy = null; 
+		}
 
 	 public String getName() {
 	     return productName;
@@ -62,5 +70,6 @@ public class Product {
 			// TODO Auto-generated method stub
 			return minStockQuantity;
 	 }
+
 	
 }
