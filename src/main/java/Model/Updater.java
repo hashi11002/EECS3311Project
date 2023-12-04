@@ -13,17 +13,15 @@ public class Updater {
 	static String password = "";
 
 	public static void updateProduct(String ProductName, int restockQuantity) {
-		/* TO BE IMPLEMENTED */
 
 		try {
 
 			Connection con = DriverManager.getConnection(url, user, password);
 
-			String updateQuery = "UPDATE product SET remainingStock = remainingStock + ? WHERE productID = ?";
+			String updateQuery = "UPDATE products SET remainingStock = remainingStock + ? WHERE itemName = ?";
 			PreparedStatement ps = con.prepareStatement(updateQuery);
 			ps.setInt(1, restockQuantity);
 			ps.setString(2,ProductName);
-			ResultSet rs = ps.executeQuery();
 
 
 			int affectedRows = ps.executeUpdate();
@@ -41,13 +39,13 @@ public class Updater {
 
 
 	public static void depleteProduct(String ProductName, int depleteQuantity) {
-		/* TO BE IMPLEMENTED */
+
 		try {
 
 			Connection con = DriverManager.getConnection(url, user, password);
 
 
-			String updateQuery = "UPDATE product SET remainingStock = GREATEST(0, remainingStock - ?) WHERE productID = ?";
+			String updateQuery = "UPDATE products  SET remainingStock = remainingStock - ? WHERE itemName = ?";
 			PreparedStatement ps = con.prepareStatement(updateQuery);
 			ps.setInt(1, depleteQuantity);
 			ps.setString(2, ProductName);
