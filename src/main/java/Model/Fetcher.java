@@ -32,8 +32,16 @@ public class Fetcher {
 			if(rs.next()) {
 				Product product = new Product(
 				rs.getString("itemName"),
+				rs.getInt("remainingStock"),
 				rs.getInt("maxQuantity"),
-				rs.getInt("remainingStock")
+				rs.getInt("minStockQuantity"),
+				PricingFactory.createStrategy(
+						rs.getInt("quantityForDiscount"),
+						rs.getFloat("quantityDiscountPercent"),
+						rs.getFloat("priceForDiscount"),
+						rs.getFloat("priceDiscountPercent")),
+				RestockFactory.createStrategy(rs.getInt("restockAmount"))
+						
 				);
 				return product;
 			}
