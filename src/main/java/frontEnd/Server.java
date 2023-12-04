@@ -28,7 +28,6 @@ public class Server {
 	public void startServer() throws Exception {
 		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 		server.createContext("/test1", new MyHandler1());
-		server.createContext("/test2", new MyHandler2());
 		server.setExecutor(Executors.newCachedThreadPool());
 		server.start();
 	}
