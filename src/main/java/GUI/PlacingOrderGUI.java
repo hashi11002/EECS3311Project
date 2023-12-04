@@ -79,6 +79,10 @@ public class PlacingOrderGUI extends JFrame {
                 String[] args = {selectedProduct, String.valueOf(selectedQuantity), timestamp.toString()};
                 httpClient.main(args);
             }
+			
+			private void response(String message) {
+				JOptionPane.showMessageDialog(PlacingOrderGUI.this, message);
+			}
 				
 
         });
