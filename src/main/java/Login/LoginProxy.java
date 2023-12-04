@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginProxy implements ILogin{
-	String url = "jdbc:mysql://localhost:3306/Users3311";
+	String url = "jdbc:mysql://localhost:3306/3311ProjectDatabase";
 	String user = "root";
 	String password = "";
 	LoginBackend authenticator;
