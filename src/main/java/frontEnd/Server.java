@@ -32,25 +32,58 @@ public class Server {
 		server.start();
 	}
 
+//	static class MyHandler1 implements HttpHandler {
+//		public void handle(HttpExchange exchange) throws IOException {
+//			Map<String, String> parms = queryToMap(exchange.getRequestURI().getQuery());
+//			String response = "Hello World! " + "P1 was: " + parms.get("p1") + " and p2 was: " + parms.get("p2");
+//			exchange.sendResponseHeaders(200, response.length());
+//			OutputStream os = exchange.getResponseBody();
+//			os.write(response.getBytes());
+//			try {
+//				wait(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			response = " FOO";
+//			exchange.sendResponseHeaders(200, response.length());
+//			OutputStream os2 = exchange.getResponseBody();
+//			os2 = exchange.getResponseBody();
+//			os2.write(response.getBytes());
+//			os.close();
+//			os2.close();
+//		}
+//	}
+	
 	static class MyHandler1 implements HttpHandler {
 		public void handle(HttpExchange exchange) throws IOException {
 			Map<String, String> parms = queryToMap(exchange.getRequestURI().getQuery());
-			String response = "Hello World! " + "P1 was: " + parms.get("p1") + " and p2 was: " + parms.get("p2");
-			exchange.sendResponseHeaders(200, response.length());
-			OutputStream os = exchange.getResponseBody();
-			os.write(response.getBytes());
+			ControllerFacade facade = ControllerFacade.getInstance();
+			String response;
+			
+			try {
+			
+				double price = facade.buy(parms.get("ProductName"), Integer.parseInt(parms.get("ProductQuantity")), LocalDateTime.parse(parms.get("Timestamp")));
+				response = getOrderFinalizedMessage(parms.get("ProductName"), Integer.parseInt(parms.get("ProductQuantity")), price);
+			} catch (IllegalArgumentException e) {
+				response = getOrderRejectedMessage();
+			}
+			
+//			exchange.sendResponseHeaders(200, response.length());
+//			OutputStream os = exchange.getResponseBody();
+//			os.write(response.getBytes());
 			try {
 				wait(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response = " FOO";
+//			response = " FOO";
 			exchange.sendResponseHeaders(200, response.length());
 			OutputStream os2 = exchange.getResponseBody();
 			os2 = exchange.getResponseBody();
 			os2.write(response.getBytes());
-			os.close();
+//			os.close();
 			os2.close();
 		}
 	}
@@ -70,14 +103,14 @@ public class Server {
 	    return result;
 	}
 
-	public void displayOrderRejectedMessage(Order order) {
-		// "Order cannot be processed exceeds maximum quantity
+	private static String getOrderRejectedMessage() {
+		return "Order exceeds the max quantity set for this product and cannot be processed";
 	}
-	
-	public void displayOrderFinalizedMessage(Order order) {
-	        System.out.println("Order is finalized for Product " + Order.getInstance().getProductName() +
-	                " and Quantity " + Order.getInstance().getQuantity() +
-	                " with total price " + order.getTotalPrice());
+
+    	private static String getOrderFinalizedMessage(String ProductName, int OrderQuantity, double price) {
+        	return "Order is finalized for Product " + ProductName +
+                	" and Quantity " + OrderQuantity +
+                	" with total price " + price + "\n";
     	}
 
     
