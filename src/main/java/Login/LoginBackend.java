@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import frontEnd.Starter;
+
 public class LoginBackend {
 
 	
@@ -19,7 +21,7 @@ public class LoginBackend {
 				}else {
 					result = false;
 				}
-
+			Starter.main(null);
 			return result;
 		}
 
