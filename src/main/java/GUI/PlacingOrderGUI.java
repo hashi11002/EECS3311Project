@@ -1,14 +1,14 @@
 package GUI;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 import Model.Fetcher;
 import Product.Product;
+import httpClient.httpClient;
 
 public class PlacingOrderGUI extends JFrame {
 	private JComboBox<String> productComboBox;
@@ -18,72 +18,75 @@ public class PlacingOrderGUI extends JFrame {
 	public static void main(String[] args) {
 		
 		PlacingOrderGUI placingOrder = new PlacingOrderGUI();
-		}
-	  public PlacingOrderGUI() {
-		  
-		  Fetcher selection = new Fetcher();
-	   
-	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setSize(300, 200);
+	}
+	
+	public PlacingOrderGUI() {
+		Fetcher selection = new Fetcher();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 200);
 	       
-	        ArrayList<String> products = new ArrayList<>(selection.getProductNames());
+        ArrayList<String> products = new ArrayList<>(selection.getProductNames());
 
-	        createWindow(products);
-	        setVisible(true);
-	    }
-	  private void createWindow(ArrayList<String> products) {
-	        JPanel panel = new JPanel();
-	        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        createWindow(products);
+        setVisible(true);
+	}
+	
+	private void createWindow(ArrayList<String> products) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-	        // dropdown menue 
-	        JLabel chooseproduct = new JLabel("Select Product:");
-	        panel.add(chooseproduct); 
-	    
+        // dropdown menue 
+        JLabel chooseproduct = new JLabel("Select Product:");
+        panel.add(chooseproduct); 
+    
 
-	        String[] productsArray = products.toArray(new String[0]);
-	        productdropdown = new JComboBox<>(productsArray);
-	        panel.add(productdropdown);
+        String[] productsArray = products.toArray(new String[0]);
+        productdropdown = new JComboBox<>(productsArray);
+        panel.add(productdropdown);
 
-	        // Quantity input
-	        JLabel choosequantity = new JLabel("Quantity Selected:");
-	        Integer[] quantities = {1, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100};
-	        panel.add(choosequantity);
+        // Quantity input
+        JLabel choosequantity = new JLabel("Quantity Selected:");
+        Integer[] quantities = {1, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100};
+        panel.add(choosequantity);
 
-	        quantitydropdown = new JComboBox<>(quantities);
-	        panel.add(quantitydropdown);
+        quantitydropdown = new JComboBox<>(quantities);
+        panel.add(quantitydropdown);
 
-	        // Order button
-	        JButton orderButton = new JButton("Place Order");
-	        panel.add(orderButton);
-	        orderButton.addActionListener(new ActionListener() {
-	           
-	        	@Override
-	            public void actionPerformed(ActionEvent e) {
-	                placeOrder();
-	            }
+        // Order button
+        JButton orderButton = new JButton("Place Order");
+        panel.add(orderButton);
+        orderButton.addActionListener(new ActionListener() {
+           
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+                placeOrder();
+            }
 
-				private void placeOrder() {
-					Fetcher selection = new Fetcher();
-					String selectedProduct = (String) productdropdown.getSelectedItem();
-					Product product =  selection.getProductObj(selectedProduct);
-					//Store this product into the context.
-	                int selectedQuantity = (int) quantitydropdown.getSelectedItem();
-	                //store this quantity into the context.
+			private void placeOrder() {
+				Fetcher selection = new Fetcher();
+				String selectedProduct = (String) productdropdown.getSelectedItem();
+				Product product =  selection.getProductObj(selectedProduct);
+				//Store this product into the context.
+                int selectedQuantity = (int) quantitydropdown.getSelectedItem();
+                //store this quantity into the context.
 
-	           
-	                java.util.Date date = new java.util.Date();
-	                Timestamp timestamp = new Timestamp(date.getTime());
+                LocalDateTime timestamp = java.time.LocalDateTime.now();
+            
 
-	               
-	                String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + timestamp;
-	                JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
-	            }
-					
+               
+                String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + timestamp;
+                JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
+                String[] args = {selectedProduct, String.valueOf(selectedQuantity), timestamp.toString()};
+                httpClient.main(args);
+            }
+				
 
-	        });
+        });
 
-	        add(panel);
-	        setLocationRelativeTo(null);
-	    }
+        add(panel);
+        setLocationRelativeTo(null);
+		
+	}
+
 
 }
