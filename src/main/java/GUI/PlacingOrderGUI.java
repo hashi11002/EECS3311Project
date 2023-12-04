@@ -57,32 +57,31 @@ public class PlacingOrderGUI extends JFrame {
         panel.add(orderButton);
         orderButton.addActionListener(new ActionListener() {
            
-        	@Override
+            @Override
             public void actionPerformed(ActionEvent e) {
                 placeOrder();
             }
 
-			private void placeOrder() {
-				Fetcher selection = new Fetcher();
-				String selectedProduct = (String) productdropdown.getSelectedItem();
-				Product product =  selection.getProductObj(selectedProduct);
-				//Store this product into the context.
+	    private void placeOrder() {
+		Fetcher selection = new Fetcher();
+		String selectedProduct = (String) productdropdown.getSelectedItem();
+		Product product =  selection.getProductObj(selectedProduct);
+		//Store this product into the context.
                 int selectedQuantity = (int) quantitydropdown.getSelectedItem();
                 //store this quantity into the context.
 
                 LocalDateTime timestamp = java.time.LocalDateTime.now();
-            
-
+                String date = timestamp.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                
-                String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + timestamp;
+                String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + date;
                 JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
-                String[] args = {selectedProduct, String.valueOf(selectedQuantity), timestamp.toString()};
+                String[] args = {selectedProduct, String.valueOf(selectedQuantity), date};
                 httpClient.main(args);
             }
 			
-			private void response(String message) {
-				JOptionPane.showMessageDialog(PlacingOrderGUI.this, message);
-			}
+	    private void response(String message) {
+		JOptionPane.showMessageDialog(PlacingOrderGUI.this, message);
+	    }
 				
 
         });
