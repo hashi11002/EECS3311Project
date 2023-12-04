@@ -55,19 +55,8 @@ public class Server {
 			os2.close();
 		}
 	}
-	
-	
-	static class MyHandler2 implements HttpHandler {
-		public void handle(HttpExchange exchange) throws IOException {
-			Map<String, String> parms = queryToMap(exchange.getRequestURI().getQuery());
-			String response = "Hello New Brave World! " + " p3 was: " + parms.get("p3");
-			exchange.sendResponseHeaders(200, response.length());
-			OutputStream os = exchange.getResponseBody();
-			os.write(response.getBytes());
-			os.close();
-		}
-	}
 
+	
 	public static Map<String, String> queryToMap(String query){
 
 	    Map<String, String> result = new HashMap<String, String>();
@@ -82,28 +71,15 @@ public class Server {
 	    return result;
 	}
 
-	public void displayRestockingInitiatedMessage(String product) {
-	        System.out.println("Restocking Operation for Product " + product + " initiated");
-	    }
-
-	    public void displayRestockingCompletedMessage(String product) {
-	        System.out.println("Restocking Operation for Product " + product + " completed");
-	    }
-
-	    public void displayOrderDetails(Order order) {
-	        System.out.println("Order Details:\nProduct: " + order.getProductName() +
-	                "\nQuantity: " + order.getQuantity() +
-	                "\nTimestamp: " + order.getDate());
-	    }
-
-	    public void displayOrderPendingMessage(Order order) {
-	        System.out.println("Order for Product " + order.getProductName() +
-	                " Quantity " + order.getQuantity() + " is pending – order exceeds available quantity");
-	    }
-
-	    public void displayOrderFinalizedMessage(Order order) {
-	        System.out.println("Order is finalized for Product " + order.getProductName() +
-	                " and Quantity " + order.getQuantity() +
+	public void displayOrderRejectedMessage(Order order) {
+		// "Order cannot be processed exceeds maximum quantity
+	}
+	
+	public void displayOrderFinalizedMessage(Order order) {
+	        System.out.println("Order is finalized for Product " + Order.getInstance().getProductName() +
+	                " and Quantity " + Order.getInstance().getQuantity() +
 	                " with total price " + order.getTotalPrice());
-	    }
+    	}
+
+    
 }
