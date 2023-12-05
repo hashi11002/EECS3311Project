@@ -1,4 +1,4 @@
-package GUI;
+package httpClient;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -9,7 +9,6 @@ import javax.swing.*;
 
 import Model.Fetcher;
 import Model.Product.Product;
-import httpClient.httpClient;
 
 public class PlacingOrderGUI extends JFrame {
 	private JComboBox<String> productComboBox;

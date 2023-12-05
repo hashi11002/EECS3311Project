@@ -78,13 +78,13 @@ public class Server {
 			exchange.sendResponseHeaders(200, response.length());
 			OutputStream os = exchange.getResponseBody();
 			os.write(response.getBytes());
-			try {
-				wait(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			response = " FOO";
+//			try {
+//				wait(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			response = " FOO";
 			exchange.sendResponseHeaders(200, response.length());
 			OutputStream os2 = exchange.getResponseBody();
 			os2 = exchange.getResponseBody();

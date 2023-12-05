@@ -9,7 +9,7 @@ public class Restocker {
 		while (obj.getAvailableQuantity() < obj.getMaxQuantity()) {
 			int restockQuantity = (obj.getRestockAmount() <= (obj.getMaxQuantity() - obj.getAvailableQuantity())) ? obj.getRestockAmount() : obj.getMaxQuantity() - obj.getAvailableQuantity();
 			ModelFacade.getInstance().restock(obj.getName(), restockQuantity);
-			
+
 			obj.restock(restockQuantity);
 		}
 		

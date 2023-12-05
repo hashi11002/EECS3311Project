@@ -1,8 +1,6 @@
-package GUI;
+package Login;
 
 import javax.swing.*;
-
-import Login.LoginBackend;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

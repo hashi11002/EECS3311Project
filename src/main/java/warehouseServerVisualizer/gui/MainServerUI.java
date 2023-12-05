@@ -88,7 +88,7 @@ public class MainServerUI extends JFrame {
 		east.removeAll();
 		report = new JTextArea();
 		report.setEditable(false);
-		report.setPreferredSize(new Dimension(400, 600));
+		report.setPreferredSize(new Dimension(400, 900));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.white);
 		String reportMessage1, reportMessage2;
@@ -137,24 +137,28 @@ public class MainServerUI extends JFrame {
 		String rejectedMessage = "Order for Product " + theLastOrder.getProductName() + " Quantity " + theLastOrder.getQuantity() + " exceeds the max quantity set for this product and cannot be processed";
 		
 		report.setText(report.getText() + "\n" + rejectedMessage);
+		setVisible(true);
 	}
 	
 	public void displayRestockBegun() {
 		String message = "Restocking Operation for Product " + theLastOrder.getProductName() + " initiated";
 		
 		report.setText(report.getText() + "\n" + message);
+		setVisible(true);
 	}
 	
 	public void displayRestockEnded() {
 		String message = "Restocking Operation for Product " + theLastOrder.getProductName() + " completed";
 		
 		report.setText(report.getText() + "\n" + message);
+		setVisible(true);
 	}
 	
 	public void displayPending() {
 		String message = "Order for Product " + theLastOrder.getProductName() + " Quantity " + theLastOrder.getQuantity() + " is pending – order exceeds available quantity";
 
 		report.setText(report.getText() + "\n" + message);
+		setVisible(true);
 	}
 
 	public void createBar() {
