@@ -75,13 +75,10 @@ public class PlacingOrderGUI extends JFrame {
                
                 String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + date;
                 JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
-                String[] args = {selectedProduct, String.valueOf(selectedQuantity), date};
-                httpClient.main(args);
+                httpClient client = new httpClient();
+                JOptionPane.showMessageDialog(PlacingOrderGUI.this, 
+                		client.doThehttpCalltest1(selectedProduct, String.valueOf(selectedQuantity), date), "Server Response", JOptionPane.INFORMATION_MESSAG
             }
-			
-	    private void response(String message) {
-		JOptionPane.showMessageDialog(PlacingOrderGUI.this, message);
-	    }
 				
 
         });
