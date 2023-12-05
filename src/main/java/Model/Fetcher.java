@@ -34,17 +34,8 @@ public class Fetcher {
 				rs.getInt("remainingStock"),
 				rs.getInt("maxQuantity"),
 				rs.getInt("minStockQuantity"),
-				PricingFactory.createStrategy(
-						rs.getInt("quantityForDiscount"),
-						rs.getFloat("quantityDiscountPercent"),
-						rs.getFloat("priceForDiscount"),
-						rs.getFloat("priceDiscountPercent")),
-				RestockFactory.createStrategy(rs.getInt("restockingSchedule"),
-							      rs.getInt("maxStockQuantity"),
-							      rs.getInt("currentQuantity"),
-							      rs.getInt("productsToRestock"))
-					
-						
+				PricingFactory.createStrategy(rs.getInt("pricingID")),
+				RestockFactory.createStrategy(rs.getInt("restockID"))
 				);
 				return product;
 			}
