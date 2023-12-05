@@ -40,7 +40,11 @@ public class Fetcher {
 						rs.getFloat("quantityDiscountPercent"),
 						rs.getFloat("priceForDiscount"),
 						rs.getFloat("priceDiscountPercent")),
-				RestockFactory.createStrategy(rs.getInt("restockAmount"))
+				RestockFactory.createStrategy(rs.getInt("restockingSchedule"),
+							      rs.getInt("maxStockQuantity"),
+							      rs.getInt("currentQuantity"),
+							      rs.getInt("productsToRestock"))
+					
 						
 				);
 				return product;
