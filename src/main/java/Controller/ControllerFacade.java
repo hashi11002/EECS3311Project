@@ -21,24 +21,24 @@ public class ControllerFacade {
 	
 	public double buy(String productID, int orderedQuantity, LocalDateTime timestamp) {
 		
-		Product obj = ModelFacade.getInstance().startOrder(productID, orderedQuantity, timestamp);
-		if (orderedQuantity > obj.getMaxQuantity()) {
+		Product product = ModelFacade.getInstance().startOrder(productID, orderedQuantity, timestamp);
+		if (orderedQuantity > product.getMaxQuantity()) {
 			ModelFacade.getInstance().rejectOrder();
 			throw new IllegalArgumentException();
 		}
 		
-		if (orderedQuantity > obj.getAvailableQuantity()) {
+		if (orderedQuantity > product.getAvailableQuantity()) {
 			ModelFacade.getInstance().displayPending();
-			Restocker.restock(obj);
+			Restocker.restock(product);
 		}
 		
-		double price = obj.calculatePrice();
+		double price = product.calculatePrice();
 		ModelFacade.getInstance().depleteProduct(productID, orderedQuantity);
-		obj.reduceQuantity(orderedQuantity);
+		product.reduceQuantity(orderedQuantity);
 		
-		if (obj.getAvailableQuantity() < obj.getMinQuantity()) {
+		if (product.getAvailableQuantity() < product.getMinQuantity()) {
 			ModelFacade.getInstance().displayPending();
-			Restocker.restock(obj);
+			Restocker.restock(product);
 		}
 		
 		return price;
