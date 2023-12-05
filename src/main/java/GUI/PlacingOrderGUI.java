@@ -77,7 +77,7 @@ public class PlacingOrderGUI extends JFrame {
                 JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
                 httpClient client = new httpClient();
                 JOptionPane.showMessageDialog(PlacingOrderGUI.this, 
-                		client.doThehttpCalltest1(selectedProduct, String.valueOf(selectedQuantity), date), "Server Response", JOptionPane.INFORMATION_MESSAG
+                		client.doThehttpCalltest1(selectedProduct, String.valueOf(selectedQuantity), date), "Server Response", JOptionPane.INFORMATION_MESSAGE);
             }
 				
 
