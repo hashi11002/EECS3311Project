@@ -10,10 +10,10 @@ import java.util.Scanner;
 
 public class httpClient {
 	
-	private String doThehttpCalltest1(String p1, String p2) {
+	public String doThehttpCalltest1(String p1, String p2, String p3) {
 
 		String urlString = String.format(
-				"http://localhost:8000/test1?p1=%s&p2=%s", p1, p2);
+				"http://localhost:8000/test1?ProductName=%s&ProductQuantity=%s&Timestamp=%s", p1, p2, p3);
 		
 		try {
 			URL url = new URL(urlString);
@@ -42,7 +42,8 @@ public class httpClient {
 		// TODO Auto-generated method stub
 		
 		httpClient aCaller = new httpClient();
-		System.out.println("The server responed : " + aCaller.doThehttpCalltest1("Param1value", "Param2value"));
+		System.out.println("The server responded : " + aCaller.doThehttpCalltest1(args[0], args[1], args[2]));
+//		PlacingOrderGui.displayResponse(aCaller.doThehttpCalltest1(args[0], args[1], args[2]);
 
 	}
 

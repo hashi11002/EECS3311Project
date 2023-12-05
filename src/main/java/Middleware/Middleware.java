@@ -36,7 +36,7 @@ public class Middleware {
 
         double price = ControllerFacade.getInstance().buy(order.getProductName(), order.getQuantity(), order.getDate());
         
-        Server.displayOrderFinalizedMessage(order, price);
+//        Server.displayOrderFinalizedMessage(order, price);
         
     }
 
