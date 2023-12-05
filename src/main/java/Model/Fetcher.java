@@ -7,22 +7,23 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import Product.*;
+import Model.Product.Product;
+import Model.Product.Pricing.PricingFactory;
+import Model.Product.Restocking.RestockingFactory;
 
 public class Fetcher {
 	
-	static String url = "jdbc:mysql://localhost:3306/3311ProjectDatabase";
+	static String url = "jdbc:sqlite:/C:\\Users\\Amin\\git\\EECS3311Project\\ab.db";
 	static String user = "root";
 	static String password = "";
 	
 	public static Product getProductObj(String ProductName) {
 		
-		
 		try {
-			Connection con = DriverManager.getConnection(url, user, password);
-			String query = "select * from product where itemName = ?";
+			Class.forName("org.sqlite.JDBC");
+			Connection con = DriverManager.getConnection(url);
+			String query = "select * from products where itemName = ?";
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, ProductName);
 			
@@ -32,19 +33,23 @@ public class Fetcher {
 				Product product = new Product(
 				rs.getString("itemName"),
 				rs.getInt("remainingStock"),
-				rs.getInt("maxQuantity"),
+				rs.getInt("maxCapacity"),
 				rs.getInt("minStockQuantity"),
 				PricingFactory.createStrategy(rs.getInt("pricingID")),
-				RestockFactory.createStrategy(rs.getInt("restockID"))
+				RestockingFactory.createStrategy(rs.getInt("restockID"))
 				);
+				rs.close();
+				ps.close();
+				con.close();
 				return product;
 			}
+			rs.close();
+			ps.close();
+			con.close();
 			
-			
-			
-	}
-		catch(Exception e){
-			System.out.println("ERROR IN ORDERING");
+		} catch(Exception e){
+				e.printStackTrace();
+				System.out.println("ERROR IN ORDERING");
 		}
 		return null;
 	
@@ -54,24 +59,32 @@ public class Fetcher {
 	public static ArrayList<String> getProductNames() {
 		/* LET'S ASSUME it gets the following info from some database */
 		ArrayList<String> products = new ArrayList<>();
-		
+//		products.add("ProductA");
+//		products.add("ProductB");
+//		products.add("ProductC");
 		try {
-			Connection con = DriverManager.getConnection(url, user, password);
+			Class.forName("org.sqlite.JDBC");
+			Connection con = DriverManager.getConnection(url);
 			
-			String query = "select * from product";
+			String query = "select * from products";
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(query);
-			
+//			System.out.println(rs.getString("itemName"));
 			while(rs.next()) {
-				Product product = new Product(
-				rs.getString("itemName"), 
-				0,
-				0);
-				products.add(product.getName());
+//				System.out.println(rs.getString("itemName"));
+//				Product product = new Product(
+//				rs.getString("itemName"), 
+//				0,
+//				0);
+				products.add(rs.getString("itemName"));
 			}
+			rs.close();
+			statement.close();
+			con.close();
 		}
 
 		catch(Exception e){
+			e.printStackTrace();
 			System.out.println("ERROR IN ORDERING");
 		}
 		return products;

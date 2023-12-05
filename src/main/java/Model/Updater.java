@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Updater {
 
-	static String url = "jdbc:mysql://localhost:3306/3311ProjectDatabase";
+	static String url = "jdbc:sqlite:/C:\\Users\\Amin\\git\\EECS3311Project\\ab.db";
 	static String user = "root";
 	static String password = "";
 
@@ -16,7 +16,7 @@ public class Updater {
 
 		try {
 
-			Connection con = DriverManager.getConnection(url, user, password);
+			Connection con = DriverManager.getConnection(url);
 
 			String updateQuery = "UPDATE products SET remainingStock = remainingStock + ? WHERE itemName = ?";
 			PreparedStatement ps = con.prepareStatement(updateQuery);
@@ -30,6 +30,8 @@ public class Updater {
 			} else {
 				System.out.println("Product not found or no change in stock: " + ProductName);
 			}
+			ps.close();
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,8 +43,8 @@ public class Updater {
 	public static void depleteProduct(String ProductName, int depleteQuantity) {
 
 		try {
-
-			Connection con = DriverManager.getConnection(url, user, password);
+			Class.forName("org.sqlite.JDBC");
+			Connection con = DriverManager.getConnection(url);
 
 
 			String updateQuery = "UPDATE products  SET remainingStock = remainingStock - ? WHERE itemName = ?";
@@ -57,7 +59,9 @@ public class Updater {
 			} else {
 				System.out.println("Product not found or no change in stock: " + ProductName);
 			}
-		} catch (SQLException e) {
+			ps.close();
+			con.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

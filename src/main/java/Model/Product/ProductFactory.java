@@ -1,6 +1,9 @@
-package Product;
+package Model.Product;
 
 import java.util.HashMap;
+
+import Model.Product.Pricing.PricingStrategy;
+import Model.Product.Restocking.RestockStrategy;
 
 public class ProductFactory {
 	private static ProductFactory instance = null;

@@ -1,4 +1,7 @@
-package Product;
+package Model.Product;
+
+import Model.Product.Pricing.PricingStrategy;
+import Model.Product.Restocking.RestockStrategy;
 
 /* 
  * The Product class is just a simple way for the Controller to keep track of the info
@@ -14,7 +17,7 @@ public class Product {
 	 private final PricingStrategy priceStrategy;
 	 private final RestockStrategy restockStrategy;
 	 
-	 Product(String name, int currentQuantity, int maxQuantity, int minQuantity, PricingStrategy priceStrategy, RestockStrategy restockStrategy) {
+	 public Product(String name, int currentQuantity, int maxQuantity, int minQuantity, PricingStrategy priceStrategy, RestockStrategy restockStrategy) {
 		 productName = name;
 		 availableQuantity = currentQuantity;
 		 maxStockQuantity = maxQuantity;
@@ -46,8 +49,8 @@ public class Product {
 	     availableQuantity += quantity;
 	 }
 	 
-	 public double calculatePrice() {
-		 return priceStrategy.calculateTotalPrice(availableQuantity);
+	 public double calculatePrice(int orderedQuantity) {
+		 return priceStrategy.calculateTotalPrice(orderedQuantity);
 	 }
 
 	 public int getRestockAmount() {

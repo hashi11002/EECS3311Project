@@ -3,7 +3,7 @@ package Controller;
 import java.time.LocalDateTime;
 
 import Model.ModelFacade;
-import Product.Product;
+import Model.Product.Product;
 
 public class ControllerFacade {
 	
@@ -32,7 +32,7 @@ public class ControllerFacade {
 			Restocker.restock(product);
 		}
 		
-		double price = product.calculatePrice();
+		double price = product.calculatePrice(orderedQuantity);
 		ModelFacade.getInstance().depleteProduct(productID, orderedQuantity);
 		product.reduceQuantity(orderedQuantity);
 		

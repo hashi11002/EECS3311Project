@@ -2,12 +2,13 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 import Model.Fetcher;
-import Product.Product;
+import Model.Product.Product;
 import httpClient.httpClient;
 
 public class PlacingOrderGUI extends JFrame {
@@ -62,23 +63,23 @@ public class PlacingOrderGUI extends JFrame {
                 placeOrder();
             }
 
-	    private void placeOrder() {
-		Fetcher selection = new Fetcher();
-		String selectedProduct = (String) productdropdown.getSelectedItem();
-		Product product =  selection.getProductObj(selectedProduct);
-		//Store this product into the context.
-                int selectedQuantity = (int) quantitydropdown.getSelectedItem();
-                //store this quantity into the context.
-
-                LocalDateTime timestamp = java.time.LocalDateTime.now();
-                String date = timestamp.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-               
-                String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + date;
-                JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
-                httpClient client = new httpClient();
-                JOptionPane.showMessageDialog(PlacingOrderGUI.this, 
-                		client.doThehttpCalltest1(selectedProduct, String.valueOf(selectedQuantity), date), "Server Response", JOptionPane.INFORMATION_MESSAGE);
-            }
+		    private void placeOrder() {
+			Fetcher selection = new Fetcher();
+			String selectedProduct = (String) productdropdown.getSelectedItem();
+			Product product =  selection.getProductObj(selectedProduct);
+			//Store this product into the context.
+	                int selectedQuantity = (int) quantitydropdown.getSelectedItem();
+	                //store this quantity into the context.
+	
+	                LocalDateTime timestamp = java.time.LocalDateTime.now();
+	                String date = timestamp.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+	               
+	                String message = "Order Details:\n" +  "Product: " + selectedProduct + "\n" + "Quantity: " + selectedQuantity + "\n" +  "Timestamp: " + date;
+	                JOptionPane.showMessageDialog(PlacingOrderGUI.this, message, "Order Placed", JOptionPane.INFORMATION_MESSAGE);
+	                httpClient client = new httpClient();
+	                JOptionPane.showMessageDialog(PlacingOrderGUI.this, 
+	                		client.doThehttpCalltest1(selectedProduct, String.valueOf(selectedQuantity), date), "Server Response", JOptionPane.INFORMATION_MESSAGE);
+	        }
 				
 
         });

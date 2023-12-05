@@ -13,7 +13,7 @@ public class httpClient {
 	public String doThehttpCalltest1(String p1, String p2, String p3) {
 
 		String urlString = String.format(
-				"http://localhost:8000/test1?ProductName=%s&ProductQuantity=%s&Timestamp=%s", p1, p2, p3);
+				"http://localhost:8002/test1?ProductName=%s&ProductQuantity=%s&Timestamp=%s", p1, p2, p3);
 		
 		try {
 			URL url = new URL(urlString);

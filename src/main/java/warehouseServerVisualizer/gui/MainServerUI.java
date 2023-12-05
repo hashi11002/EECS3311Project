@@ -70,6 +70,8 @@ public class MainServerUI extends JFrame {
 
 		getContentPane().add(west, BorderLayout.WEST);
 		getContentPane().add(east, BorderLayout.EAST);
+		
+		setSize(800,600);
 
 //		createCharts(west, east);
 
@@ -77,25 +79,26 @@ public class MainServerUI extends JFrame {
 
 //	private void createCharts(JPanel west, JPanel east) {
 //
-//		createBar(west);
-//		createReport(east);
+//		createBar();
+//		createNewReport();
 //
 //	}
 
 	public void createNewReport() {
+		east.removeAll();
 		report = new JTextArea();
 		report.setEditable(false);
-		report.setPreferredSize(new Dimension(400, 300));
+		report.setPreferredSize(new Dimension(400, 600));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.white);
 		String reportMessage1, reportMessage2;
 
-		reportMessage1 = "Last Order\n" + "==========================\n" + "\t";
+		reportMessage1 = "Last Order\n" + "==========================\n";
 		reportMessage1 = reportMessage1 + "Product: " + theLastOrder.getProductName() + "\n" 
-		                 + "\tQuantity:" +  theLastOrder.getQuantity() + "\n"
-		                 + "\tTimeStamp:" +  theLastOrder.getDate() + "\n";
+		                 + "Quantity:" +  theLastOrder.getQuantity() + "\n"
+		                 + "TimeStamp:" +  theLastOrder.getDate() + "\n";
 
-		reportMessage2 = "Current Product Quantity in Watehouse\n" + "==============================\n";
+		reportMessage2 = "Current Product Quantity in Warehouse\n" + "==============================\n";
 
 		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
 			//System.out.println("IN LOOP " + entry.getKey() + " " + entry.getValue());
@@ -113,9 +116,10 @@ public class MainServerUI extends JFrame {
 	}
 	
 	public void updateReport() {
+		productData = AvailableProductList.getInstance().getAvailableProductList();
 		String reportMessage2;
 
-		reportMessage2 = "Current Product Quantity in Watehouse\n" + "==============================\n";
+		reportMessage2 = "Current Product Quantity in Warehouse\n" + "==============================\n";
 
 		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
 			//System.out.println("IN LOOP " + entry.getKey() + " " + entry.getValue());
@@ -123,7 +127,8 @@ public class MainServerUI extends JFrame {
 			reportMessage2 = reportMessage2 + "\n \t Quantity ==> " + entry.getValue() + "\n";
 
 		}
-		report.setText(report.getText() + "/n" + reportMessage2);
+		report.setText(report.getText() + "\n" + reportMessage2);
+		setVisible(true);
 	}
 	
 	public void displayRejected() {
@@ -153,6 +158,7 @@ public class MainServerUI extends JFrame {
 	}
 
 	public void createBar() {
+		west.removeAll();
 		dataset = new DefaultCategoryDataset();
 
 		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
@@ -180,14 +186,15 @@ public class MainServerUI extends JFrame {
 
 
 		ChartPanel chartPanel = new ChartPanel(barChart);
-		chartPanel.setPreferredSize(new Dimension(400, 300));
+		chartPanel.setPreferredSize(new Dimension(400, 600));
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		chartPanel.setBackground(Color.white);
 		west.add(chartPanel);
+		setVisible(true);
 	}
 	
 	public void updateBar() {
-
+		productData = AvailableProductList.getInstance().getAvailableProductList();
 		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
 			dataset.setValue(entry.getValue(), entry.getKey(), "");
 
@@ -195,6 +202,7 @@ public class MainServerUI extends JFrame {
 
 
 		plot.setDataset(0, dataset);
+		setVisible(true);
 		
 	}
 

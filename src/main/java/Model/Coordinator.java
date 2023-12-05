@@ -20,6 +20,7 @@ public class Coordinator {
 	
 	private Coordinator() {}
 	
+	
 	public static Coordinator getInstance() {
 		if (instance == null) {
 			instance = new Coordinator();
@@ -60,6 +61,8 @@ public class Coordinator {
 	}
 	
 	private void notifyViewers() {
+		AvailableProductList productList = AvailableProductList.getInstance();
+		productList.setAvailableProductsAndQuantities(Fetcher.getAvailableQuantitiesFor(Fetcher.getProductNames()));
 		for (Viewer e : observers) {
 			e.update();
 		}
